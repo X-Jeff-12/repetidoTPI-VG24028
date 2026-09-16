@@ -84,11 +84,14 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
             <input type="text" name="nombre"><br>
             
             <LABEl>Nombre</LABEl><br>
-            <input type="text" name="nombre"><br>
+            <input type="number" name="cantidad" min="1"><br>
             
-            <LABEl>Nombre</LABEl><br>
-            <input type="text" name="nombre"><br>
-            
+            <LABEl>Productos</LABEl><br>
+            <select name="productos">
+                <option value="">--- Seleccione un producto</option>
+                <?php  ?>
+            </select>
+
             <LABEl>Nombre</LABEl><br>
             <input type="text" name="nombre"><br>
             
