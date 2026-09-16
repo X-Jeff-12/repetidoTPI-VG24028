@@ -2,6 +2,7 @@
 
 session_start();
 
+const IVA = 0;
 
 if(!isset($_SESSION["pedidos"])){
     $_SESSION["pedidos"] = [];
@@ -35,12 +36,16 @@ $productos = [
     "desayuno" =>[
         "nombre" => "Huevos con casamiento",
         "categoria" => "alimentos",
-        "precio" => 15.50,
+        "precio" => 25.50,
         "disponibles" => 30
     ],
 ];
 
 function calcularPago(float $total){
+    $descuento = match(true){
+        $total === 20 || ($total > 20  && $total < 40 ) => $total * 0.05,
+        $total === 40 || ($total > 40) => $total * 0.1,
+    };
 
 };
 $errores = [];
@@ -53,8 +58,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     if(empty($nombre) || empty($cantidad) ){
         $errores[] ="Facil relleno todos los campos obligatorios"; 
     };
-
-
 };
 
 ?>
@@ -93,13 +96,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
                 <option value="<?=htmlspecialchars($key)?>"> Producto: <?=htmlspecialchars($value['nombre'])?>  - Costo: <?=htmlspecialchars($value['precio'])?></option>
                 <?php endforeach; ?> 
             </select>
-
-
-          
-
-
-
-
+            
         </form>
     </div>
 </body>
