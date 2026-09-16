@@ -1,0 +1,9 @@
+services:
+  apache:
+    build: ./apache
+    container_name: servidor-apache-vg24028
+    restart: always
+    volumes:
+      - "./proyectos:/var/www/html"
+    ports:
+      - "8052:80"
