@@ -45,6 +45,7 @@ function calcularPago(float $total){
     $descuento = match(true){
         $total === 20 || ($total > 20  && $total < 40 ) => $total * 0.05,
         $total === 40 || ($total > 40) => $total * 0.1,
+        default => 0
     };
 
 };
@@ -53,10 +54,13 @@ $errores = [];
 if($_SERVER['REQUEST_METHOD'] === "POST"){
     $nombre = trim($_POST["nombre"]) ?? [];
     $cantidad = trim($_POST["cantidad"]) ?? [];
-    $productos = trim($_POST["producto"]) ?? [];
+    $producto = trim($_POST["producto"]) ?? [];
     
     if(empty($nombre) || empty($cantidad) ){
         $errores[] ="Facil relleno todos los campos obligatorios"; 
+    };
+    if(!array_key_exists($producto, $productos)){
+        $errores[] = "El producto seleccionado no existe, favor seleccione una valido ";
     };
 };
 
@@ -90,12 +94,13 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
             <input type="number" name="cantidad" min="1"><br>
             
             <LABEl>Productos</LABEl><br>
-            <select name="productos">
+            <select name="producto">
                 <option value="">--- Seleccione un producto</option>
                 <?php foreach ($productos as $key => $value ): ?>
                 <option value="<?=htmlspecialchars($key)?>"> Producto: <?=htmlspecialchars($value['nombre'])?>  - Costo: <?=htmlspecialchars($value['precio'])?></option>
                 <?php endforeach; ?> 
             </select>
+            <button type="submit">Registrar</button>
             
         </form>
     </div>
