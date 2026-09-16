@@ -1,6 +1,6 @@
 <?php
 
-$session_start();
+session_start();
 
 
 if(!isset($_SESSION["pedidos"])){
@@ -42,7 +42,7 @@ $productos = [
 
 function calcularPago(float $total){
 
-}
+};
 $errores = [];
 
 if($_SERVER['REQUEST_METHOD'] === "POST"){
@@ -52,10 +52,10 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     
     if(empty($nombre) || empty($cantidad) ){
         $errores[] ="Facil relleno todos los campos obligatorios"; 
-    }
+    };
 
 
-}
+};
 
 ?>
 <!DOCTYPE html>
@@ -83,22 +83,19 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
             <LABEl>Nombre</LABEl><br>
             <input type="text" name="nombre"><br>
             
-            <LABEl>Nombre</LABEl><br>
+            <LABEl>Cantidad</LABEl><br>
             <input type="number" name="cantidad" min="1"><br>
             
             <LABEl>Productos</LABEl><br>
             <select name="productos">
                 <option value="">--- Seleccione un producto</option>
-                <?php  ?>
+                <?php foreach ($productos as $key => $value ): ?>
+                <option value="<?=htmlspecialchars($key)?>"> Producto: <?=htmlspecialchars($value['nombre'])?>  - Costo: <?=htmlspecialchars($value['precio'])?></option>
+                <?php endforeach; ?> 
             </select>
 
-            <LABEl>Nombre</LABEl><br>
-            <input type="text" name="nombre"><br>
-            
-            <LABEl>Nombre</LABEl><br>
-            <input type="text" name="nombre"><br>
-            
-            
+
+          
 
 
 
